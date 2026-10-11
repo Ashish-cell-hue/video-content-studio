@@ -45,3 +45,26 @@ def create_test_folder(folder_name):
         raise ValueError("Folder already exists")
 
     return destination.name
+
+def list_test_folders():
+    """Read folder names from the configured OneDrive test location."""
+    root_text = os.environ.get("VIDEO_CONTENT_ONEDRIVE_TEST_DIR")
+
+    if not root_text:
+        raise ValueError("OneDrive test folder is not configured")
+
+    root = Path(root_text).resolve(strict=True)
+
+    if not root.is_dir():
+        raise ValueError("OneDrive test location is not a folder")
+
+    folders = []
+
+    for item in root.iterdir():
+        if item.is_dir() and not item.is_symlink():
+            folders.append({
+                "name": item.name,
+                "type": "Folder"
+            })
+
+    return sorted(folders, key=lambda item: item["name"].casefold())

@@ -36,6 +36,29 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         
+        if self.path == "/api/onedrive/folders":
+            try:
+                from onedrive_folders import list_test_folders
+
+                folders = list_test_folders()
+                result = json.dumps(folders).encode("utf-8")
+
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Access-Control-Allow-Origin", "http://127.0.0.1:5500")
+                self.send_header("Cache-Control", "no-store")
+                self.send_header("X-Content-Type-Options", "nosniff")
+                self.send_header("Content-Length", str(len(result)))
+                self.end_headers()
+                self.wfile.write(result)
+
+            except Exception as exc:
+                print("OneDrive folder listing error:", exc)
+                self.send_error(500, "Could not list OneDrive folders")
+
+            return
+
+
         if self.path.startswith("/api/media?"):
             try:
                 from urllib.parse import urlsplit, parse_qs
