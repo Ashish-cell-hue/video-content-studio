@@ -167,6 +167,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   refreshButton.addEventListener("click", loadFolders);
 
+  // Automatically refresh OneDrive folders every 30 seconds.
+  // Refresh only while the dashboard tab is visible.
+  const autoRefresh = setInterval(() => {
+    if (!document.hidden) {
+      loadFolders();
+    }
+  }, 30000);
+
+  window.addEventListener("pagehide", () => {
+    clearInterval(autoRefresh);
+  });
+
+
   panel.append(heading, refreshButton, list);
   document.body.appendChild(panel);
 
