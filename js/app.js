@@ -12,7 +12,7 @@ function render(){let a=state.path?state.path.split('/'):[];$('crumbs').innerHTM
 document.addEventListener('click',e=>{let t=e.target.closest('[data-nav],[data-select]');if(t){if(t.hasAttribute('data-nav'))navig(t.getAttribute('data-nav'));else select(t.getAttribute('data-select'))}});$('search').addEventListener('input',renderResults);$('kind').addEventListener('change',renderResults);$('grade').addEventListener('change',()=>{let g=$('grade').value;if(g&&!state.path.startsWith(g)){state.path=g;state.selected=byPath.get(g)}else if(!g&&state.path){state.path='';state.selected=null}render()});$('reset').addEventListener('click',()=>{$('search').value='';$('kind').value='';navig('')});render();
 async function loadFolderData() {
   try {
-    const response = await fetch('http://127.0.0.1:8001/api/folders');
+    const response = await fetch('http://127.0.0.1:8001/api/live-folders');
 
     if (!response.ok) {
       throw new Error('API error: ' + response.status);
