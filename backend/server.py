@@ -11,6 +11,29 @@ CSV_FILE = PRIVATE_DIR / "master_folder_report.csv"
 EXCEL_FILE = PRIVATE_DIR / "Final Curriculum Skeleton (2).xlsx"
 
 class Handler(BaseHTTPRequestHandler):
+    def do_OPTIONS(self):
+        if self.path != "/api/onedrive/create-folder":
+            self.send_error(404, "Not found")
+            return
+
+        allowed_origin = "http://127.0.0.1:5500"
+
+        if (
+            self.headers.get("Origin") != allowed_origin
+            or self.headers.get("Access-Control-Request-Method") != "POST"
+        ):
+            self.send_error(403, "Not allowed")
+            return
+
+        self.send_response(204)
+        self.send_header("Access-Control-Allow-Origin", allowed_origin)
+        self.send_header("Access-Control-Allow-Methods", "POST")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.send_header("Access-Control-Max-Age", "600")
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+
+
     def do_GET(self):
         
         if self.path.startswith("/api/media?"):
@@ -177,6 +200,70 @@ class Handler(BaseHTTPRequestHandler):
         except Exception as exc:
             print("Backend error:", exc)
             self.send_error(500, "Could not read folder report")
+
+    def do_POST(self):
+        from urllib.parse import urlsplit
+        import json
+
+        allowed_origin = "http://127.0.0.1:5500"
+
+        if urlsplit(self.path).path != "/api/onedrive/create-folder":
+            self.send_error(404, "Not found")
+            return
+
+        # Only accept requests from our local dashboard.
+        if self.headers.get("Origin") != allowed_origin:
+            self.send_error(403, "Origin not allowed")
+            return
+
+        if self.headers.get("Content-Type", "").split(";")[0].strip().lower() != "application/json":
+            self.send_error(415, "JSON required")
+            return
+
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+        except ValueError:
+            self.send_error(400, "Invalid content length")
+            return
+
+        if not 0 < length <= 1024:
+            self.send_error(413, "Invalid request size")
+            return
+
+        try:
+            data = json.loads(self.rfile.read(length))
+            if not isinstance(data, dict):
+                raise ValueError("Invalid request")
+
+            from onedrive_folders import create_test_folder
+            folder_name = create_test_folder(data.get("name"))
+
+            result = json.dumps({
+                "success": True,
+                "folder": folder_name
+            }).encode("utf-8")
+
+            self.send_response(201)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", allowed_origin)
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.send_header("Content-Length", str(len(result)))
+            self.end_headers()
+            self.wfile.write(result)
+
+        except (ValueError, FileNotFoundError) as exc:
+            result = json.dumps({"error": str(exc)}).encode("utf-8")
+            self.send_response(400)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Access-Control-Allow-Origin", allowed_origin)
+            self.send_header("Content-Length", str(len(result)))
+            self.end_headers()
+            self.wfile.write(result)
+
+        except Exception as exc:
+            print("OneDrive folder API error:", exc)
+            self.send_error(500, "Folder creation failed")
 
 if __name__ == "__main__":
     server = HTTPServer(("127.0.0.1", 8001), Handler)
