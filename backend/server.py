@@ -13,6 +13,52 @@ EXCEL_FILE = PRIVATE_DIR / "Final Curriculum Skeleton (2).xlsx"
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         
+        if self.path.startswith("/api/media?"):
+            try:
+                from urllib.parse import urlsplit, parse_qs
+                from media_server import get_media_file, get_media_type
+
+                params = parse_qs(urlsplit(self.path).query)
+                relative_path = params.get("path", [""])[0]
+
+                media_file = get_media_file(relative_path)
+                file_size = media_file.stat().st_size
+
+                self.send_response(200)
+                self.send_header(
+                    "Content-Type",
+                    get_media_type(media_file)
+                )
+                self.send_header(
+                    "Content-Disposition",
+                    "inline"
+                )
+                self.send_header(
+                    "X-Content-Type-Options",
+                    "nosniff"
+                )
+                self.send_header(
+                    "Access-Control-Allow-Origin",
+                    "http://127.0.0.1:5500"
+                )
+                self.send_header("Cache-Control", "no-store")
+                self.send_header("Content-Length", str(file_size))
+                self.end_headers()
+
+                with media_file.open("rb") as file:
+                    while True:
+                        chunk = file.read(65536)
+                        if not chunk:
+                            break
+                        self.wfile.write(chunk)
+
+            except (ValueError, FileNotFoundError):
+                self.send_error(404, "Media file unavailable")
+            except Exception as exc:
+                print("Media preview error:", exc)
+                self.send_error(500, "Media preview failed")
+            return
+
         if self.path.startswith("/api/curriculum-format?"):
             try:
                 from urllib.parse import urlparse, parse_qs
