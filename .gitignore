@@ -1,0 +1,39 @@
+
+# Private curriculum and source data
+*.xlsx
+*.xls
+*.csv
+*.pdf
+*.doc
+*.docx
+*.txt
+
+# Media files
+*.mp4
+*.mov
+*.mp3
+*.wav
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# Local data folders
+Scripts and Images/
+private_data/
+local_data/
+reports/
+
+# Python temporary files
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+.env.*
+
+# Private HTML snapshots
+#index.html
+index_backup_private.html
+# Local-only startup configuration
+START_PRIVATE.bat

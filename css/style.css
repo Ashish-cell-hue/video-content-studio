@@ -1,0 +1,143 @@
+:root{color-scheme:dark;--bg:#070b1b;--panel:rgba(20,27,51,.80);--stroke:#273358;--txt:#eff4ff;--muted:#a5b4d7;--cyan:#46d9ff;--purple:#a884ff;--green:#61efbc}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0%,#1d1950 0%,transparent 34%),radial-gradient(circle at 95% 0%,#063f52 0%,transparent 28%),var(--bg);color:var(--txt);font:14px system-ui,'Segoe UI',Arial,sans-serif;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}header{padding:20px 28px;border-bottom:1px solid var(--stroke);display:flex;justify-content:space-between;gap:16px;align-items:center;background:#091026bb;flex-wrap:wrap}.logo{font-size:21px;font-weight:900;letter-spacing:.4px}.logo b{color:var(--cyan)}.sub{color:var(--muted);font-size:12px;margin-top:4px}.tag{background:#1d2951;color:#cfe9ff;border:1px solid #43598f;border-radius:99px;padding:7px 12px;font-size:12px}.shell{padding:22px;max-width:1750px;margin:auto}.stats{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px;margin-bottom:18px}.stat,.panel{border:1px solid var(--stroke);background:var(--panel);border-radius:18px;box-shadow:0 10px 32px #0003;backdrop-filter:blur(16px)}.stat{padding:17px}.stat strong{display:block;font-size:26px;color:white}.stat span{font-size:12px;color:var(--muted)}.stat.scope{border-color:#5268aa;background:linear-gradient(135deg,#212755dd,#10243ddd)}.stat.scope strong{color:#72e8ff}.scope-name{font-size:12px;color:#84e8fb;margin:-8px 0 14px 3px;font-weight:700}.layout{display:grid;grid-template-columns:268px minmax(0,1fr) 290px;gap:16px;align-items:start}.panel{overflow:hidden}.paneltitle{padding:18px;border-bottom:1px solid var(--stroke);font-weight:800;display:flex;align-items:center;justify-content:space-between}.nav{max-height:75vh;overflow:auto;padding:8px}.node{display:flex;align-items:center;gap:7px;width:100%;text-align:left;color:#cbd6f6;border:0;background:transparent;padding:9px 10px;border-radius:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.node:hover,.node.active{background:#253761;color:white}.node.active{box-shadow:inset 3px 0 var(--cyan)}.node small{margin-left:auto;color:#a5b4d7}.indent{padding-left:19px}.mainbar{padding:18px;border-bottom:1px solid var(--stroke)}.crumbs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}.crumbs button{background:transparent;border:0;color:var(--cyan);padding:4px}.crumbs em{color:var(--muted);font-style:normal;align-self:center}.title{font-size:25px;font-weight:850;margin:0 0 8px}.desc{color:var(--muted);font-size:13px}.filters{display:flex;gap:10px;flex-wrap:wrap;margin-top:17px}.search,select{background:#0a142e;color:white;border:1px solid #35436d;border-radius:11px;padding:11px 12px;outline:none}.search:focus,select:focus{border-color:var(--cyan)}.search{flex:1;min-width:180px}.actions{display:flex;gap:8px}.chip{border-radius:9px;padding:8px 10px;background:#162546;color:#bdeeff;border:1px solid #33466e}.chip:hover{border-color:var(--cyan)}.contents{padding:16px;min-height:420px}.sectionlabel{font-weight:700;color:#bfcbea;margin:9px 2px 12px;display:flex;justify-content:space-between}.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:11px}.tile{border:1px solid #303c65;background:linear-gradient(150deg,#192344d9,#10172ec9);color:white;border-radius:14px;padding:14px;text-align:left;min-height:108px;display:flex;flex-direction:column;gap:7px}.tile:hover{border-color:var(--cyan);transform:translateY(-1px)}.tile .symbol{font-size:22px}.tile strong{overflow-wrap:anywhere;font-size:13px}.tile .meta{color:var(--muted);font-size:12px}.tile.selected{border-color:var(--purple);box-shadow:0 0 0 1px #9d70ff}.empty{padding:34px 14px;text-align:center;color:var(--muted);border:1px dashed #435177;border-radius:14px}.inspector{padding:18px}.inspector h3{font-size:17px;overflow-wrap:anywhere}.kv{display:flex;justify-content:space-between;border-bottom:1px solid #263455;padding:12px 0;gap:10px}.kv span:first-child{color:var(--muted)}.kv span:last-child{text-align:right;overflow-wrap:anywhere}.hint{margin-top:18px;padding:13px;background:#18324c;border-radius:12px;color:#c4f1ff;font-size:12px;line-height:1.6}.warning{background:#3b2b20;color:#ffe3bf}.foot{padding:18px 3px;color:#91a5d1;font-size:12px}kbd{background:#26365d;padding:2px 5px;border-radius:4px}#resultsTitle{margin-top:12px}.loading{opacity:.65}button:focus-visible{outline:2px solid var(--cyan)}@media(max-width:1150px){.layout{grid-template-columns:240px 1fr}.sideRight{grid-column:1/-1}.stats{grid-template-columns:repeat(3,1fr)}}@media(max-width:700px){.shell{padding:12px}.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.nav{max-height:260px}header{padding:15px}.sideRight{grid-column:1}.title{font-size:21px}}
+/* Video Content Studio navigation tabs */
+.studio-tabs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.studio-tab {
+  padding: 12px 22px;
+  border: 1px solid rgba(99, 213, 242, 0.25);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #c9d9e8;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.studio-tab:hover {
+  border-color: #63d5f2;
+  background: rgba(99, 213, 242, 0.1);
+}
+
+.studio-tab.active {
+  color: #ffffff;
+  border-color: #63d5f2;
+  background: linear-gradient(
+    135deg,
+    rgba(99, 213, 242, 0.25),
+    rgba(139, 92, 246, 0.2)
+  );
+  box-shadow: 0 0 18px rgba(99, 213, 242, 0.12);
+}
+
+/* Curriculum Excel Viewer */
+.curriculum-view[hidden] {
+  display: none !important;
+}
+
+.curriculum-view {
+  margin: 20px 0;
+  padding: 24px;
+  border: 1px solid rgba(99, 213, 242, 0.25);
+  border-radius: 20px;
+  background: rgba(16, 25, 45, 0.75);
+  color: #e7efff;
+}
+
+.curriculum-view h2 {
+  margin: 0 0 18px;
+  color: #ffffff;
+}
+
+.curriculum-grade-select {
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #17243c;
+  color: #ffffff;
+  border: 1px solid #63d5f2;
+  font: inherit;
+}
+
+.curriculum-table-wrap {
+  margin-top: 20px;
+  overflow-x: auto;
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+.curriculum-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.curriculum-table th,
+.curriculum-table td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  text-align: left;
+  vertical-align: top;
+  min-width: 130px;
+}
+
+.curriculum-table th {
+  position: sticky;
+  top: 0;
+  background: #20344d;
+  color: #63d5f2;
+  z-index: 1;
+}
+
+.curriculum-table tr:hover td {
+  background: rgba(99, 213, 242, 0.06);
+}
+
+/* Original Excel spreadsheet appearance */
+
+.excel-sheet-wrap {
+  width: 100%;
+  max-width: 100%;
+  max-height: 75vh;
+  overflow: auto;
+  background: #ffffff;
+  border: 1px solid #aeb8c5;
+  border-radius: 10px;
+}
+
+.excel-original-table {
+  table-layout: fixed;
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  color: #17202a;
+  font-family: Calibri, Aptos, Arial, sans-serif;
+  font-size: 11pt;
+}
+
+.excel-original-table td {
+  box-sizing: border-box;
+  padding: 5px 7px;
+  border: 1px solid #d9dfe6;
+  color: #17202a;
+  background-color: #ffffff;
+  vertical-align: middle;
+  overflow-wrap: break-word;
+  word-break: normal;
+  line-height: 1.35;
+  min-width: 0;
+}
+
+.excel-original-table tr {
+  background: #ffffff;
+}
+
+.excel-original-table td:hover {
+  outline: 2px solid #16a34a;
+  outline-offset: -2px;
+}
